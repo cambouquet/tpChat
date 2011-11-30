@@ -1,4 +1,7 @@
-import java.rmi.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -8,15 +11,20 @@ public class Client {
 
 		Message rmiServer;
 		Registry registry;
-		String serverAddress = "Camille-VAIO/130.66.208.97";
-		String serverPort = "7777";
+		String serverAddress = "";
+		try {
+			serverAddress = (InetAddress.getLocalHost()).toString();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int serverPort = 7777;
 		String text = "Coucou Antoine !";
 		System.out.println("sending " + text + " to " + serverAddress + ":"
 				+ serverPort);
 		try {
 			// get the “registry”
-			registry = LocateRegistry.getRegistry(serverAddress, (new Integer(
-					serverPort)).intValue());
+			registry = LocateRegistry.getRegistry(serverPort);
 			// look up the remote object
 			rmiServer = (Message) (registry.lookup("rmiServer"));
 			// call the remote method

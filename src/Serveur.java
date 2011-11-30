@@ -11,7 +11,7 @@ public class Serveur extends UnicastRemoteObject implements Message {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String message;
-	private String InetAdresse;
+	private String inetAdresse;
 	private Registry registry;
 	private int port;
 
@@ -21,7 +21,7 @@ public class Serveur extends UnicastRemoteObject implements Message {
 
 			// get the address of this host.
 
-			InetAdresse = (InetAddress.getLocalHost()).toString();
+			inetAdresse = (InetAddress.getLocalHost()).toString();
 
 		}
 
@@ -31,9 +31,9 @@ public class Serveur extends UnicastRemoteObject implements Message {
 
 		}
 
-		port = 3232; // this port(registry’s port)
+		port = 7777; // this port(registry’s port)
 
-		System.out.println("this address=" + InetAdresse + ",port=" + port);
+		System.out.println("this address=" + inetAdresse + ",port=" + port);
 
 		try {
 
