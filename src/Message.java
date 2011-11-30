@@ -1,3 +1,3 @@
 public interface Message extends java.rmi.Remote {
-	public void sayHello() throws java.rmi.RemoteException;
+	public void sayHello(String message) throws java.rmi.RemoteException;
 }

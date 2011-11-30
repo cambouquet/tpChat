@@ -10,15 +10,50 @@ public class Serveur extends UnicastRemoteObject implements Message {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String message;
+	private String message;
+	private String InetAdresse;
+	private Registry registry;
+	private int port;
 
 	// Implémentation du constructeur
-	public Serveur(String msg) throws java.rmi.RemoteException {
-		message = msg;
+	public Serveur() throws java.rmi.RemoteException {
+		try {
+
+			// get the address of this host.
+
+			InetAdresse = (InetAddress.getLocalHost()).toString();
+
+		}
+
+		catch (Exception e) {
+
+			throw new RemoteException("can't get inet address.");
+
+		}
+
+		port = 3232; // this port(registry’s port)
+
+		System.out.println("this address=" + InetAdresse + ",port=" + port);
+
+		try {
+
+			// create the registry and bind the name and object.
+
+			registry = LocateRegistry.createRegistry(port);
+
+			registry.rebind("rmiServer", this);
+
+		}
+
+		catch (RemoteException e) {
+
+			throw e;
+
+		}
 	}
 
 	// Implémentation de la méthode distante
-	public void sayHello() throws java.rmi.RemoteException {
+	public void sayHello(String message) throws java.rmi.RemoteException {
 		System.out.println(message);
 	}
 
@@ -26,22 +61,20 @@ public class Serveur extends UnicastRemoteObject implements Message {
 	 * @param args
 	 */
 	public static void main(String args[]) {
-		int port = 7777;
-		String URL;
-		
-		
 		try {
-			// Création du serveur de nom - rmiregistry
-			Registry registry = LocateRegistry.createRegistry(port);
-			// Création d ’une instance de l’objet serveur
-			Message obj = new Serveur("Coucou Antoine");
-			// Calcul de l’URL du serveur
-			URL = "//" + InetAddress.getLocalHost().getHostName() + ":" + port
-					+ "/mon_serveur";
-			Naming.rebind(URL, obj);
-		} catch (Exception exc) {
+
+			Serveur s = new Serveur();
+
 		}
-		
+
+		catch (Exception e) {
+
+			e.printStackTrace();
+
+			System.exit(1);
+
+		}
+
 		System.out.println("Serveur lancé");
 	}
 }
