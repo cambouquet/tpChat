@@ -32,6 +32,8 @@ public class Client{
 						// call the remote method
 						clientId = serveurConnection.connect(clientNick);
 						
+						clientNick = serveurConnection.getNick(clientId);
+
 					} catch (AccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -61,15 +63,15 @@ public class Client{
 	public static void main(String args[]) {
 		System.out.println("Client lancé");
 
-//		System.out.println("IP serveur: ");
-//		Scanner sc = new Scanner(System.in);
-//		String serverAddress = sc.nextLine();
+		System.out.println("IP serveur: ");
+		Scanner sc = new Scanner(System.in);
+		String serverAddress = sc.nextLine();
 
 		int serverPort = 80;
 		
 		try {
 			// get the “registry”
-			registry = LocateRegistry.getRegistry(serverPort);
+			registry = LocateRegistry.getRegistry(serverAddress, serverPort);
 		} catch (RemoteException e) {
 			System.err.println("Erreur dans la communication");
 			e.printStackTrace();

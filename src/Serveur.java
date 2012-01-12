@@ -82,6 +82,11 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 		return topic;
 	}
 	
+	public String getNick(int clientId) throws java.rmi.RemoteException {
+		String currentClientNick = listeClients.get(clientId);
+		return currentClientNick;
+	}
+	
 	public Message send()
 	{
 		// TOOD
@@ -90,7 +95,9 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 
 	public void disconnect(int clientId)
 	{
-		// TODO
+		String currentClientNick = listeClients.get(clientId);
+		System.out.println("Client "+ currentClientNick + " déconnecté.");
+		listeClients.remove(clientId);
 	}
 	
 	public LinkedList<String> who()
