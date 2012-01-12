@@ -37,7 +37,7 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 
 		}
 
-		setPort = 7777; // this port(registry’s port)
+		setPort = 80; // this port(registry’s port)
 
 		System.out.println("this address=" + inetAdresse + ",port=" + setPort);
 
@@ -55,6 +55,8 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 			throw e;
 
 		}
+		
+		listeClients = new HashMap<Integer, String>();
 	}
 
 	// Implémentation de la méthode distante

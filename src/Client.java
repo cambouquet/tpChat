@@ -1,3 +1,5 @@
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -23,10 +25,25 @@ public class Client  extends UnicastRemoteObject {
 	
 	public void handshake() {
 		// look up the remote object
-					serveurConnection = (SetClientThread) (registry.lookup("rmiServer"));
-					// call the remote method
-					clientId = serveurConnection.connect(clientNick);
-					registry.rebind("rmiClient" + clientId, this);
+					try {
+						serveurConnection = (SetClientThread) (registry.lookup("rmiServer"));
+						
+						// call the remote method
+						clientId = serveurConnection.connect(clientNick);
+						
+						// Register for the server
+						registry.rebind("rmiClient" + clientId, this);
+					} catch (AccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NotBoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("Connecté avec l'ID " + clientId + " et le pseudo " + clientNick);
 	}
 	
 	public void run() {
@@ -36,7 +53,7 @@ public class Client  extends UnicastRemoteObject {
 	public static void main(String args[]) {
 		System.out.println("Client lancé");
 
-		System.out.println("Pseudo : ");
+		System.out.println("IP serveur: ");
 		Scanner sc = new Scanner(System.in);
 		String serverAddress = sc.nextLine();
 

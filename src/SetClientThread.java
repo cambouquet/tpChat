@@ -1,5 +1,5 @@
 
 public interface SetClientThread extends java.rmi.Remote{
 
-	public int connect()  throws java.rmi.RemoteException;
+	public int connect(String clientNick)  throws java.rmi.RemoteException;
 }
