@@ -56,7 +56,7 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 	}
 
 	// Implémentation de la méthode distante
-	public int connect(int clientId) throws java.rmi.RemoteException {
+	public int connect() throws java.rmi.RemoteException {
 		// TODO
 		return 0;
 	}
