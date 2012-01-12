@@ -48,7 +48,6 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 			registry = LocateRegistry.createRegistry(setPort);
 
 			registry.rebind("rmiServer", this);
-
 		}
 
 		catch (RemoteException e) {
