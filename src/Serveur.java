@@ -3,17 +3,20 @@ import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
 
-public class Serveur extends UnicastRemoteObject implements Message {
+public class Serveur extends UnicastRemoteObject implements SetClientThread {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String message;
-	private String inetAdresse;
+	private String logMessage;
+	private String topic;
+	private LinkedList<String> listeKeywords;
 	private Registry registry;
-	private int port;
+	private String inetAdresse;
+	private int setPort;
 
 	// Implémentation du constructeur
 	public Serveur() throws java.rmi.RemoteException {
@@ -31,15 +34,15 @@ public class Serveur extends UnicastRemoteObject implements Message {
 
 		}
 
-		port = 7777; // this port(registry’s port)
+		setPort = 7777; // this port(registry’s port)
 
-		System.out.println("this address=" + inetAdresse + ",port=" + port);
+		System.out.println("this address=" + inetAdresse + ",port=" + setPort);
 
 		try {
 
 			// create the registry and bind the name and object.
 
-			registry = LocateRegistry.createRegistry(port);
+			registry = LocateRegistry.createRegistry(setPort);
 
 			registry.rebind("rmiServer", this);
 
@@ -53,10 +56,27 @@ public class Serveur extends UnicastRemoteObject implements Message {
 	}
 
 	// Implémentation de la méthode distante
-	public void sayHello(String message) throws java.rmi.RemoteException {
-		System.out.println(message);
+	public int connect(int clientId) throws java.rmi.RemoteException {
+		// TODO
+		return 0;
+	}
+	
+	public Message send()
+	{
+		// TOOD
+		return new Message();
 	}
 
+	public void disconnect(int clientId)
+	{
+		// TODO
+	}
+	
+	public LinkedList<String> who()
+	{
+		return new LinkedList<String>();
+	}
+	
 	/**
 	 * @param args
 	 */
