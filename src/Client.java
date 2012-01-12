@@ -5,8 +5,21 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.*;
+import java.lang.*;
 
-public class Client {
+public class Client extends Thread {
+	public int clientId;
+	public String clientNick;
+	public int lastMessage;
+	
+	public void handshake(String remoteIP) {
+		//TODO
+	}
+	
+	public void run() {
+		//TODO
+	}
+	
 	public static void main(String args[]) {
 		System.out.println("Client lancé");
 
