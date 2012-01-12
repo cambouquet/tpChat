@@ -5,6 +5,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Serveur extends UnicastRemoteObject implements SetClientThread {
 
@@ -13,7 +14,7 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String logMessage;
-	private String topic;
+	private static String topic;
 	private LinkedList<String> listeKeywords;
 	private Registry registry;
 	private String inetAdresse;
@@ -77,6 +78,10 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 		return currentClientID;
 	}
 	
+	public String getTopic() throws java.rmi.RemoteException {
+		return topic;
+	}
+	
 	public Message send()
 	{
 		// TOOD
@@ -110,7 +115,9 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 			System.exit(1);
 
 		}
-
+		System.out.println("Message of the Day: ");
+		Scanner sc = new Scanner(System.in);
+		topic = sc.nextLine();
 		System.out.println("Serveur lancé");
 	}
 }

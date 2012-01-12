@@ -12,6 +12,7 @@ public class Client  extends UnicastRemoteObject {
 	private int lastMessage;
 	private SetClientThread serveurConnection;
 	private static Registry registry;
+	private String serverTopic;
 	
 	public Client()  throws java.rmi.RemoteException
 	{
@@ -44,6 +45,15 @@ public class Client  extends UnicastRemoteObject {
 						e.printStackTrace();
 					}
 					System.out.println("Connecté avec l'ID " + clientId + " et le pseudo " + clientNick);
+					
+					// Obtain the server topic
+					try {
+						serverTopic = serveurConnection.getTopic();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("MOTD: " + serverTopic);
 	}
 	
 	public void run() {
