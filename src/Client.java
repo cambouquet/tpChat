@@ -6,7 +6,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
-public class Client  extends UnicastRemoteObject {
+public class Client{
 	private int clientId;
 	private String clientNick;
 	private int lastMessage;
@@ -14,7 +14,7 @@ public class Client  extends UnicastRemoteObject {
 	private static Registry registry;
 	private String serverTopic;
 	
-	public Client()  throws java.rmi.RemoteException
+	public Client()
 	{
 		System.out.println("Pseudo : ");
 		Scanner sc = new Scanner(System.in);
@@ -32,8 +32,6 @@ public class Client  extends UnicastRemoteObject {
 						// call the remote method
 						clientId = serveurConnection.connect(clientNick);
 						
-						// Register for the server
-						registry.rebind("rmiClient" + clientId, this);
 					} catch (AccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -63,9 +61,9 @@ public class Client  extends UnicastRemoteObject {
 	public static void main(String args[]) {
 		System.out.println("Client lancé");
 
-		System.out.println("IP serveur: ");
-		Scanner sc = new Scanner(System.in);
-		String serverAddress = sc.nextLine();
+//		System.out.println("IP serveur: ");
+//		Scanner sc = new Scanner(System.in);
+//		String serverAddress = sc.nextLine();
 
 		int serverPort = 80;
 		
@@ -77,10 +75,6 @@ public class Client  extends UnicastRemoteObject {
 			e.printStackTrace();
 		}
 		
-		try {
 			new Client();
-		} catch (RemoteException e) {
-			System.err.println("Erreur lors de la création du client");
-		}
 	}
 }
