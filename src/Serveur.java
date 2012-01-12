@@ -75,6 +75,7 @@ public class Serveur extends UnicastRemoteObject implements SetClientThread {
 		//Attribution d'un clientID
 		int currentClientID = lastClientID + 1;
 		listeClients.put(currentClientID, clientNick);
+		System.out.println("Client " + clientNick + " d'ID " + currentClientID);
 		return currentClientID;
 	}
 	
