@@ -34,6 +34,8 @@ public class Client  extends UnicastRemoteObject {
 						
 						// Register for the server
 						registry.rebind("rmiClient" + clientId, this);
+						
+						clientNick = serveurConnection.getNick(clientId);
 					} catch (AccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -71,7 +73,7 @@ public class Client  extends UnicastRemoteObject {
 		
 		try {
 			// get the “registry”
-			registry = LocateRegistry.getRegistry(serverPort);
+			registry = LocateRegistry.getRegistry(serverAddress, serverPort);
 		} catch (RemoteException e) {
 			System.err.println("Erreur dans la communication");
 			e.printStackTrace();
